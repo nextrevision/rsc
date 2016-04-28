@@ -1,0 +1,4 @@
+package: github.com/nextrevision/rsc
+import:
+- package: github.com/unrolled/render
+- package: github.com/parnurzeal/gorequest

@@ -1,0 +1,7 @@
+test:
+  override:
+    - go test -v ./...
+    - go vet ./...
+    - make build-ci
+  post:
+    - mv rsc_* $CIRCLE_ARTIFACTS/

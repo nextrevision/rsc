@@ -1,0 +1,48 @@
+{
+  "tests": [
+    {
+      "name": "MyFirstTest",
+      "bucket": "MyBucket",
+      "data": {
+        "trigger_url": "https://api.runscope.com/radar/00000000-0000-0000-0000-000000000000/trigger",
+        "name": "MyFirstTest",
+        "version": "1.0",
+        "exported_at": 1461705097,
+        "steps": [
+          {
+            "url": "https://www.google.com",
+            "variables": [],
+            "args": {},
+            "step_type": "request",
+            "auth": {},
+            "note": "This step queries an endpoint and tests the status code",
+            "headers": {},
+            "assertions": [
+              {
+                "comparison": "equal_number",
+                "value": 200,
+                "source": "response_status"
+              }
+            ],
+            "scripts": [],
+            "fragment": "",
+            "before_scripts": [],
+            "data": "",
+            "method": "GET"
+          }
+        ],
+        "description": "A great description of a test"
+      }
+    },
+    {
+      "name": "MySecondTest",
+      "bucket": "MyBucket",
+      "template": "exported_test.json.tmpl",
+      "vars": {
+        "URL": "https://www.google.com",
+        "Description": "A really comprehensive test against a URL",
+        "Note": "MySecondTest queries the google homepage!"
+      }
+    }
+  ]
+}

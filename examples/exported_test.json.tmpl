@@ -1,0 +1,30 @@
+{
+  "trigger_url": "<% triggerURL .Bucket "MyFirstTest" %>",
+  "name": "<% .Name %>",
+  "version": "1.0",
+  "exported_at": 1461705097,
+  "steps": [
+    {
+      "url": "<% .Vars.URL %>",
+      "variables": [],
+      "args": {},
+      "step_type": "request",
+      "auth": {},
+      "note": "<% .Vars.Note %>",
+      "headers": {},
+      "assertions": [
+        {
+          "comparison": "equal_number",
+          "value": 200,
+          "source": "response_status"
+        }
+      ],
+      "scripts": [],
+      "fragment": "",
+      "before_scripts": [],
+      "data": "",
+      "method": "GET"
+    }
+  ],
+  "description": "<% .Vars.Description %>"
+}
