@@ -1,4 +1,9 @@
 {
+  "buckets": [
+    {
+      "name": "MyBucket"
+    }
+  ],
   "tests": [
     {
       "name": "MyFirstTest",

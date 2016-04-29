@@ -50,7 +50,7 @@ func (t *testConfig) createOrUpdateTest() error {
 	if t.BucketKey == "" {
 		bucket, err := getBucketByName(t.Bucket)
 		if err != nil {
-			log.Error("Could determine bucket for test: %s", t.Name)
+			log.Errorf("Could determine bucket for test: %s", t.Name)
 			return err
 		}
 
@@ -59,7 +59,7 @@ func (t *testConfig) createOrUpdateTest() error {
 
 	tests, err := client.ListTests(t.BucketKey)
 	if err != nil {
-		log.Error("Could list tests for bucket: %s", t.BucketKey)
+		log.Errorf("Could list tests for bucket: %s", t.BucketKey)
 		return err
 	}
 

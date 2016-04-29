@@ -67,7 +67,7 @@ func (b *bucketConfig) create() error {
 	if err == nil {
 		log.Infof("Created bucket: %s", b.Name)
 	} else {
-		log.Error("Error creating bucket: %s", b.Name)
+		log.Errorf("Error creating bucket: %s", b.Name)
 	}
 	return err
 }
