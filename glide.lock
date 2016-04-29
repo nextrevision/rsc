@@ -1,14 +1,26 @@
-hash: a6084f46042343de93be766c2bd7386db84b5698fe2c57b7c39bd60e4ba3be69
-updated: 2016-04-20T12:06:10.880099367-04:00
+hash: 74dc9c54dc0274dbb219e60debe3d38d9899322ba59a4c5c704e2bd8a8040701
+updated: 2016-04-29T08:30:55.41733338-04:00
 imports:
 - name: github.com/moul/http2curl
   version: 1812aee76a1ce98d604a44200c6a23c689b17a89
+- name: github.com/nextrevision/go-runscope
+  version: 93c07341c13e348b20cc4fe002b92563a1df49c4
 - name: github.com/parnurzeal/gorequest
   version: 91b42fce877cc6af96c45818665a4c615cc5f4ee
+- name: github.com/Sirupsen/logrus
+  version: cd7d1bbe41066b6c1f19780f895901052150a575
+- name: github.com/stretchr/testify
+  version: c5d7a69bf8a2c9c374798160849c071093e41dd1
+  subpackages:
+  - assert
 - name: github.com/unrolled/render
   version: 198ad4d8b8a4612176b804ca10555b222a086b40
 - name: golang.org/x/net
-  version: fb93926129b8ec0056f2f458b1f519654814edf0
+  version: 1aafd77e1e7f6849ad16a7bdeb65e3589a10b2bb
   subpackages:
   - publicsuffix
+- name: golang.org/x/sys
+  version: c8bc69bc2db9c57ccf979550bc69655df5039a8a
+  subpackages:
+  - unix
 devImports: []
