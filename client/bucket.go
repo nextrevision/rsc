@@ -61,6 +61,18 @@ func (rc *RunscopeClient) CreateOrUpdateBucket(bc *config.BucketConfig) (runscop
 	return rc.createBucket(bc)
 }
 
+// DeleteBucket deletes a bucket and all tests within
+func (rc *RunscopeClient) DeleteBucket(b string) error {
+	bucket, err := rc.GetBucketByName(b)
+	if err != nil {
+		rc.Log.Debugf("Bucket does not exist")
+		return nil
+	}
+
+	rc.Log.Debugf("Deleting bucket: %s (%s)", bucket.Name, bucket.Key)
+	return rc.Runscope.DeleteBucket(bucket.Key)
+}
+
 func (rc *RunscopeClient) createBucket(bc *config.BucketConfig) (runscope.Bucket, error) {
 	rc.Log.Debugf("Creating bucket: %s", bc.Name)
 	bucket, err := rc.Runscope.NewBucket(&runscope.NewBucketRequest{

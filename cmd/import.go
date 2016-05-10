@@ -44,7 +44,7 @@ var importCmd = &cobra.Command{
 						bucket.TeamID = defaultTeam.ID
 					}
 
-					bucket, err := c.CreateOrUpdateBucket(&bucket)
+					_, err := c.CreateOrUpdateBucket(&bucket)
 					if err != nil {
 						c.Log.Fatal(err)
 					}

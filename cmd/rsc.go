@@ -16,6 +16,7 @@ var RootCmd = &cobra.Command{
 var token string
 var debug bool
 var verbose bool
+var bucket string
 
 func init() {
 	viper.SetEnvPrefix("rsc")

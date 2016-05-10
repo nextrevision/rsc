@@ -75,6 +75,22 @@ func (rc *RunscopeClient) CreateOrUpdateTest(tc *config.TestConfig) error {
 	return rc.createTest(tc)
 }
 
+// DeleteTest deletes a test from a bucket
+func (rc *RunscopeClient) DeleteTest(b string, t string) error {
+	bucket, err := rc.GetBucketByName(b)
+	if err != nil {
+		return err
+	}
+
+	test, err := rc.GetTestByName(bucket.Key, t)
+	if err != nil {
+		return err
+	}
+
+	rc.Log.Debugf("Deleting test from bucket '%s': %s (%s)", bucket.Name, test.Name, test.ID)
+	return rc.Runscope.DeleteTest(bucket.Key, test.ID)
+}
+
 func (rc *RunscopeClient) createTest(tc *config.TestConfig) error {
 	rc.Log.Debugf("Creating test: %s", tc.Name)
 

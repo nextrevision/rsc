@@ -8,8 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var bucket string
-
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "show a listing of resources",
