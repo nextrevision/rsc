@@ -7,15 +7,15 @@ import (
 )
 
 func TestIsDirectory(t *testing.T) {
-	dir, err := isDirectory("examples/")
+	dir, err := IsDirectory("../examples/")
 	assert.Nil(t, err)
 	assert.Equal(t, dir, true)
 
-	dir, err = isDirectory("examples")
+	dir, err = IsDirectory("../examples")
 	assert.Nil(t, err)
 	assert.Equal(t, dir, true)
 
-	dir, err = isDirectory("foobar")
+	dir, err = IsDirectory("foobar")
 	assert.NotNil(t, err)
 	assert.Equal(t, dir, false)
 }
