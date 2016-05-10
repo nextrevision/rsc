@@ -1,11 +1,12 @@
-package main
+package helper
 
 import (
 	"fmt"
 	"os"
 )
 
-func isDirectory(path string) (bool, error) {
+// IsDirectory returns true if the path is a directory
+func IsDirectory(path string) (bool, error) {
 	fileInfo, err := os.Stat(path)
 	if err == nil || os.IsExist(err) {
 		return fileInfo.IsDir(), err

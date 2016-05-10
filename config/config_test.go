@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"testing"
@@ -7,11 +7,11 @@ import (
 )
 
 func TestLoadConfigs(t *testing.T) {
-	configs, err := loadConfigs("examples/")
+	configs, err := LoadConfigs("../examples/")
 
 	assert.Nil(t, err)
 	assert.Equal(t, len(configs), 1)
-	assert.Equal(t, configs[0].Path, "examples/config.json")
+	assert.Equal(t, configs[0].Path, "../examples/config.json")
 
 	buckets := configs[0].Buckets
 	assert.Equal(t, len(buckets), 1)

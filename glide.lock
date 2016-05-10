@@ -1,26 +1,45 @@
-hash: 74dc9c54dc0274dbb219e60debe3d38d9899322ba59a4c5c704e2bd8a8040701
-updated: 2016-04-29T08:30:55.41733338-04:00
+hash: fb92f38c54a2d8abb88ae19ad25f6b884acd9867c2d285aea76374bead2abff0
+updated: 2016-05-10T08:30:51.605840544-04:00
 imports:
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/labstack/gommon
+  version: 2e62be24dbb1ceb226554aaccfe5a89ec71043b3
+  subpackages:
+  - log
+  - color
+- name: github.com/mattn/go-colorable
+  version: 45ce6a6f60010487dd0dbab368b5fbbed1c14ef0
+- name: github.com/mattn/go-isatty
+  version: 56b76bdf51f7708750eac80fa38b952bb9f32639
 - name: github.com/moul/http2curl
   version: 1812aee76a1ce98d604a44200c6a23c689b17a89
 - name: github.com/nextrevision/go-runscope
   version: 93c07341c13e348b20cc4fe002b92563a1df49c4
 - name: github.com/parnurzeal/gorequest
-  version: 91b42fce877cc6af96c45818665a4c615cc5f4ee
+  version: a39a2f8d0463091df7344dbf586a9986e9f7184f
 - name: github.com/Sirupsen/logrus
   version: cd7d1bbe41066b6c1f19780f895901052150a575
+- name: github.com/spf13/cobra
+  version: 0f866a6211e33cde2091d9290c08f6afd6c9ebbc
+- name: github.com/spf13/pflag
+  version: cb88ea77998c3f024757528e3305022ab50b43be
+- name: github.com/spf13/viper
+  version: d8a428b8a30606e1d0b355d91edf282609ade1a6
 - name: github.com/stretchr/testify
-  version: c5d7a69bf8a2c9c374798160849c071093e41dd1
+  version: 6cb3b85ef5a0efef77caef88363ec4d4b5c0976d
   subpackages:
   - assert
 - name: github.com/unrolled/render
   version: 198ad4d8b8a4612176b804ca10555b222a086b40
+- name: github.com/valyala/fasttemplate
+  version: 3b874956e03f1636d171bda64b130f9135f42cff
 - name: golang.org/x/net
-  version: 1aafd77e1e7f6849ad16a7bdeb65e3589a10b2bb
+  version: 2a35e686583654a1b89ca79c4ac78cb3d6529ca3
   subpackages:
   - publicsuffix
 - name: golang.org/x/sys
-  version: c8bc69bc2db9c57ccf979550bc69655df5039a8a
+  version: b776ec39b3e54652e09028aaaaac9757f4f8211a
   subpackages:
   - unix
 devImports: []
