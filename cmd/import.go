@@ -24,6 +24,7 @@ var importCmd = &cobra.Command{
 
 		funcs := template.FuncMap{
 			"triggerURL": c.TriggerURL,
+			"batchURL":   c.BatchURL,
 		}
 
 		c.Log.Infof("Loading configs from %s...", importPath)
