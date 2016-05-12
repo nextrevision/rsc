@@ -1,13 +1,14 @@
 package config
 
 import (
+	"html/template"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLoadTemplates(t *testing.T) {
-	templates, err := LoadTemplates("../examples/")
+	templates, err := LoadTemplates("../examples/", template.FuncMap{})
 
 	assert.Nil(t, err)
 	assert.Equal(t, len(templates), 1)

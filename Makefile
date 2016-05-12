@@ -3,7 +3,8 @@ TEST?=
 default: test
 
 test:
-	go test $(TEST) $(TESTARGS)
+	go vet ./...
+	go test -v ./...
 
 cover:
 	go test $(TEST) -covermode=count -coverprofile=coverage.out

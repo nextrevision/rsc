@@ -16,28 +16,22 @@ type Template struct {
 }
 
 // LoadTemplates walks a path in search for all template files
-func LoadTemplates(path string) ([]Template, error) {
+func LoadTemplates(path string, funcs template.FuncMap) ([]Template, error) {
 	var templates = []Template{}
 
-	//log.Debug("Finding templates...")
 	err := filepath.Walk(path, func(filePath string, f os.FileInfo, err error) error {
-		funcs := template.FuncMap{"triggerURL": triggerURL}
-
 		if filepath.Ext(filePath) == ".tmpl" {
-			//log.Debugf("Loading template: %s", filePath)
 
 			name := strings.Replace(filePath, fmt.Sprintf("%s", path), "", 1)
 			name = strings.TrimPrefix(name, "/")
 
 			t, err := template.New("").Delims("<%", "%>").Funcs(funcs).ParseFiles(filePath)
 			if err != nil {
-				//log.Errorf("Error parsing template %s: %s", filePath, err.Error())
 				return err
 			}
 
 			for _, temp := range t.Templates() {
 				if temp.Name() != "" {
-					//log.Debugf("Adding template: %s", name)
 					templates = append(templates, Template{
 						Name:     name,
 						Path:     filePath,
