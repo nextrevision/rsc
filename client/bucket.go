@@ -43,7 +43,7 @@ func (rc *RunscopeClient) GetBucketByName(name string) (runscope.Bucket, error) 
 
 // CreateOrUpdateBucket searches for a bucket and creates
 // a new one if not found, otherwise the bucket is updated
-func (rc *RunscopeClient) CreateOrUpdateBucket(bc *config.BucketConfig) (runscope.Bucket, error) {
+func (rc *RunscopeClient) CreateOrUpdateBucket(bc *config.BucketConfig, d bool) (runscope.Bucket, error) {
 	buckets, err := rc.Runscope.ListBuckets()
 	if err != nil {
 		rc.Log.Error("Could not retrieve bucket list")
@@ -56,6 +56,11 @@ func (rc *RunscopeClient) CreateOrUpdateBucket(bc *config.BucketConfig) (runscop
 			rc.Log.Debugf("Bucket already exists: %s", bc.Name)
 			return bucket, nil
 		}
+	}
+
+	if d {
+		rc.Log.Infof("Would have created bucket: %s", bc.Name)
+		return runscope.Bucket{}, nil
 	}
 
 	return rc.createBucket(bc)

@@ -55,7 +55,7 @@ var importCmd = &cobra.Command{
 						bucket.TeamID = defaultTeam.ID
 					}
 
-					_, err := c.CreateOrUpdateBucket(&bucket)
+					_, err := c.CreateOrUpdateBucket(&bucket, dryRun)
 					if err != nil {
 						c.Log.Fatal(err)
 					}
@@ -76,7 +76,7 @@ var importCmd = &cobra.Command{
 
 					test.Bytes = data
 
-					if err = c.CreateOrUpdateTest(&test); err != nil {
+					if err = c.CreateOrUpdateTest(&test, dryRun); err != nil {
 						c.Log.Fatal(err)
 					}
 				}
@@ -88,6 +88,7 @@ var importCmd = &cobra.Command{
 func init() {
 	importCmd.Flags().StringVarP(&importPath, "path", "p", ".", "base path to search for configs and templates")
 	importCmd.Flags().StringVarP(&importInclude, "include", "i", "", "comma-separated list of types to import (bucket, tests)")
+	importCmd.Flags().BoolVarP(&dryRun, "dry-run", "d", false, "print what you would do, but don't actually do anything")
 
 	RootCmd.AddCommand(importCmd)
 }

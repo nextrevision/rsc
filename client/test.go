@@ -49,7 +49,7 @@ func (rc *RunscopeClient) GetTestByName(bucketKey string, testName string) (runs
 // CreateOrUpdateTest searches for a test in a bucket and
 // creates a new test if it does not exists, otherwise the
 // test is updated
-func (rc *RunscopeClient) CreateOrUpdateTest(tc *config.TestConfig) error {
+func (rc *RunscopeClient) CreateOrUpdateTest(tc *config.TestConfig, d bool) error {
 	if tc.BucketKey == "" {
 		bucket, err := rc.GetBucketByName(tc.Bucket)
 		if err != nil {
@@ -68,10 +68,19 @@ func (rc *RunscopeClient) CreateOrUpdateTest(tc *config.TestConfig) error {
 
 	for _, test := range *tests {
 		if test.Name == tc.Name {
+			if d {
+				rc.Log.Infof("Would have updated test: %s", tc.Name)
+				return nil
+			}
+
 			return rc.updateTest(tc, test.ID)
 		}
 	}
 
+	if d {
+		rc.Log.Infof("Would have created test: %s", tc.Name)
+		return nil
+	}
 	return rc.createTest(tc)
 }
 
