@@ -1,6 +1,7 @@
 package client
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/nextrevision/rsc/config"
@@ -9,15 +10,50 @@ import (
 )
 
 // ListBuckets prints all buckets in the account
-func (rc *RunscopeClient) ListBuckets() error {
+func (rc *RunscopeClient) ListBuckets(f string) error {
 
 	buckets, err := rc.Runscope.ListBuckets()
 	if err != nil {
 		return err
 	}
 
-	for _, b := range *buckets {
-		fmt.Println(b.Name)
+	if f == "json" {
+		data, err := json.MarshalIndent(*buckets, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(data))
+	} else {
+		for _, b := range *buckets {
+			fmt.Println(b.Name)
+		}
+	}
+
+	return nil
+}
+
+// ShowBucket prints details for a given bucket
+func (rc *RunscopeClient) ShowBucket(b string, f string) error {
+
+	bucket, err := rc.GetBucketByName(b)
+	if err != nil {
+		return err
+	}
+
+	if f == "json" {
+		data, err := json.MarshalIndent(bucket, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(data))
+	} else {
+
+		fmt.Printf("%s:\n", bucket.Name)
+		fmt.Printf("  Name: %s\n", bucket.Name)
+		fmt.Printf("  Key: %s\n", bucket.Key)
+		fmt.Printf("  Team: %s (%s)\n", bucket.Team.Name, bucket.Team.ID)
+		fmt.Printf("  Default: %t\n", bucket.Default)
+		fmt.Printf("  VerifySSL: %t\n", bucket.VerifySSL)
 	}
 
 	return nil
