@@ -1,27 +1,41 @@
 hash: fb92f38c54a2d8abb88ae19ad25f6b884acd9867c2d285aea76374bead2abff0
-updated: 2016-05-10T08:30:51.605840544-04:00
+updated: 2016-05-11T13:41:29.436358237-04:00
 imports:
+- name: github.com/BurntSushi/toml
+  version: f0aeabca5a127c4078abb8c8d64298b147264b55
+- name: github.com/fsnotify/fsnotify
+  version: 30411dbcefb7a1da7e84f75530ad3abe4011b4f8
+- name: github.com/hashicorp/hcl
+  version: 9a905a34e6280ce905da1a32344b25e81011197a
+  subpackages:
+  - hcl/ast
+  - hcl/parser
+  - hcl/token
+  - json/parser
+  - hcl/scanner
+  - hcl/strconv
+  - json/scanner
+  - json/token
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
-- name: github.com/labstack/gommon
-  version: 2e62be24dbb1ceb226554aaccfe5a89ec71043b3
-  subpackages:
-  - log
-  - color
-- name: github.com/mattn/go-colorable
-  version: 45ce6a6f60010487dd0dbab368b5fbbed1c14ef0
-- name: github.com/mattn/go-isatty
-  version: 56b76bdf51f7708750eac80fa38b952bb9f32639
+- name: github.com/magiconair/properties
+  version: c265cfa48dda6474e208715ca93e987829f572f8
+- name: github.com/mitchellh/mapstructure
+  version: d2dd0262208475919e1a362f675cfc0e7c10e905
 - name: github.com/moul/http2curl
   version: 1812aee76a1ce98d604a44200c6a23c689b17a89
 - name: github.com/nextrevision/go-runscope
-  version: 93c07341c13e348b20cc4fe002b92563a1df49c4
+  version: 59f0bc8e17d52b2ca9b0e7c801db253e12132685
 - name: github.com/parnurzeal/gorequest
   version: a39a2f8d0463091df7344dbf586a9986e9f7184f
 - name: github.com/Sirupsen/logrus
   version: cd7d1bbe41066b6c1f19780f895901052150a575
+- name: github.com/spf13/cast
+  version: 27b586b42e29bec072fe7379259cc719e1289da6
 - name: github.com/spf13/cobra
   version: 0f866a6211e33cde2091d9290c08f6afd6c9ebbc
+- name: github.com/spf13/jwalterweatherman
+  version: 33c24e77fb80341fe7130ee7c594256ff08ccc46
 - name: github.com/spf13/pflag
   version: cb88ea77998c3f024757528e3305022ab50b43be
 - name: github.com/spf13/viper
@@ -32,14 +46,14 @@ imports:
   - assert
 - name: github.com/unrolled/render
   version: 198ad4d8b8a4612176b804ca10555b222a086b40
-- name: github.com/valyala/fasttemplate
-  version: 3b874956e03f1636d171bda64b130f9135f42cff
 - name: golang.org/x/net
-  version: 2a35e686583654a1b89ca79c4ac78cb3d6529ca3
+  version: 96dbb961a39ddccf16860cdd355bfa639c497f23
   subpackages:
   - publicsuffix
 - name: golang.org/x/sys
   version: b776ec39b3e54652e09028aaaaac9757f4f8211a
   subpackages:
   - unix
+- name: gopkg.in/yaml.v2
+  version: a83829b6f1293c91addabc89d0571c246397bbf4
 devImports: []

@@ -22,7 +22,7 @@ var listBucketsCmd = &cobra.Command{
 			c.Log.Fatal(err)
 		}
 
-		err = c.ListBuckets()
+		err = c.ListBuckets(format)
 		if err != nil {
 			c.Log.Fatal(err)
 		}
@@ -44,7 +44,7 @@ var listTestsCmd = &cobra.Command{
 			c.Log.Fatal(err)
 		}
 
-		err = c.ListTests(bucket)
+		err = c.ListTests(bucket, format)
 		if err != nil {
 			c.Log.Fatal(err)
 		}

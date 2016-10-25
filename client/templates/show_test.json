@@ -1,0 +1,177 @@
+{
+  "name": "ixrelay_trigger",
+  "id": "3a154f00-dc7a-48b8-993a-69360db9ef1e",
+  "description": "",
+  "created_by": {
+    "name": "DevOps",
+    "email": "devops@icg360.com",
+    "id": "ed44381e-95fc-4e52-b119-9e6260c5a239",
+    "uuid": ""
+  },
+  "created_at": 1460391484,
+  "default_environment_id": "e4b57478-65dd-4532-b9ee-569e5ca564d3",
+  "trigger_url": "https://api.runscope.com/radar/38652c9a-032d-4b87-af85-dd1254fe45c4/trigger",
+  "last_run": {
+    "id": "ae8276c1-806d-4217-ac96-6c48cbbf1e7a",
+    "uuid": "ae8276c1-806d-4217-ac96-6c48cbbf1e7a",
+    "test_uuid": "3a154f00-dc7a-48b8-993a-69360db9ef1e",
+    "environment_uuid": "4935ef24-8d6f-4ffc-9c3b-e9944e68e984",
+    "environment_name": "Test Settings",
+    "remote_agent_uuid": "da6b62ff-1949-40c1-8010-23b0f372853e",
+    "remote_agent_name": "ICG AWS dev-int",
+    "remote_agent_version": "go-radar-agent v0.23",
+    "status": "completed",
+    "created_at": 1.463070862614429e+09,
+    "finished_at": 1.463070866541704e+09,
+    "error_count": 0,
+    "message_success": 2,
+    "source": "scheduled",
+    "extractor_count": 0,
+    "extractor_success": 0,
+    "substitution_count": 0,
+    "substitution_success": 0,
+    "script_count": 1,
+    "script_success": 1,
+    "assertion_count": 2,
+    "assertion_success": 2,
+    "bucket_key": "tlspa07hozys",
+    "region": "",
+    "messages": [],
+    "message_count": 2,
+    "template_uuids": [
+      "b53c0097-7f35-4f3d-81dc-307455d1f8fc",
+      "a368c215-c255-4d4f-9c3a-2b580822e3f1",
+      "37e2bcdc-25f0-40b0-9a89-ff99bde3e55b",
+      "18495f1e-6861-4db3-8dd8-898f20da9dfe",
+      "64d3d394-24cc-4ef8-b02c-4ea8c132b377"
+    ]
+  },
+  "steps": [
+    {
+      "step_type": "request",
+      "id": "a368c215-c255-4d4f-9c3a-2b580822e3f1",
+      "method": "GET",
+      "url": "http://consul.dev-int.icg360.net:8500/v1/catalog/service/ixrelay",
+      "body": "",
+      "auth": {
+        "auth_type": ""
+      },
+      "form": null,
+      "assertions": [
+        {
+          "source": "response_status",
+          "property": "",
+          "comparison": "equal_number",
+          "value": 200
+        }
+      ],
+      "variables": [],
+      "headers": {},
+      "scripts": [
+        "var data = JSON.parse(response.body);\n\nvar backends = [];\n\nfor (var backend in data) {\n    var host = data[backend].ServiceAddress;\n    var port = data[backend].ServicePort;\n    \n    var entry = {};\n    entry.host = host;\n    entry.port = port;\n    backends.push(entry);\n}\n\nvariables.set('backends', JSON.stringify(backends));"
+      ],
+      "note": "",
+      "duration": 0,
+      "comparison": "",
+      "right_value": "",
+      "left_value": "",
+      "steps": null,
+      "integration_id": "",
+      "suite_id": "",
+      "test_id": "",
+      "is_custom_start_url": false
+    },
+    {
+      "step_type": "condition",
+      "id": "37e2bcdc-25f0-40b0-9a89-ff99bde3e55b",
+      "method": "",
+      "url": "",
+      "body": "",
+      "auth": {
+        "auth_type": ""
+      },
+      "form": null,
+      "assertions": null,
+      "variables": null,
+      "headers": null,
+      "scripts": null,
+      "note": "",
+      "duration": 0,
+      "comparison": "not_empty",
+      "right_value": "",
+      "left_value": "backends",
+      "steps": [
+        {
+          "step_type": "request",
+          "id": "18495f1e-6861-4db3-8dd8-898f20da9dfe",
+          "method": "POST",
+          "url": "https://api.runscope.com/radar/3bb01460-4842-4959-b2de-396c5fd43340/batch?runscope_environment={{runscope_environment}}",
+          "body": "{{backends}}",
+          "auth": {
+            "auth_type": ""
+          },
+          "form": {},
+          "assertions": [
+            {
+              "source": "response_status",
+              "property": "",
+              "comparison": "equal_number",
+              "value": "201"
+            }
+          ],
+          "variables": [],
+          "headers": {
+            "Content-Type": [
+              "application/json"
+            ]
+          },
+          "scripts": [],
+          "note": "",
+          "duration": 0,
+          "comparison": "",
+          "right_value": "",
+          "left_value": "",
+          "steps": null,
+          "integration_id": "",
+          "suite_id": "",
+          "test_id": "",
+          "is_custom_start_url": false
+        }
+      ],
+      "integration_id": "",
+      "suite_id": "",
+      "test_id": "",
+      "is_custom_start_url": false
+    }
+  ],
+  "environments": [
+    {
+      "name": "Test Settings",
+      "id": "4935ef24-8d6f-4ffc-9c3b-e9944e68e984",
+      "parent_environment_id": "e4b57478-65dd-4532-b9ee-569e5ca564d3",
+      "preserve_cookies": false,
+      "regions": [],
+      "remote_agents": [],
+      "script": "",
+      "test_id": "3a154f00-dc7a-48b8-993a-69360db9ef1e",
+      "verify_ssl": true,
+      "webhooks": null,
+      "emails": {
+        "notify_all": false,
+        "notify_on": "all",
+        "notify_threshold": 1,
+        "recipients": []
+      },
+      "initial_variables": {},
+      "integrations": []
+    }
+  ],
+  "schedules": [
+    {
+      "id": "a284a10d-5081-4355-a453-f09e899c761e",
+      "note": "",
+      "interval": "15m",
+      "environment_id": "4935ef24-8d6f-4ffc-9c3b-e9944e68e984"
+    }
+  ]
+}

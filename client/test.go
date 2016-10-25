@@ -1,7 +1,10 @@
 package client
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"html/template"
 
 	"github.com/nextrevision/rsc/config"
 
@@ -9,7 +12,8 @@ import (
 )
 
 // ListTests prints all tests in a given bucket
-func (rc *RunscopeClient) ListTests(b string) error {
+func (rc *RunscopeClient) ListTests(b string, f string) error {
+	rc.Log.Debugf("Listing tests in bucket '%s'", b)
 	bucket, err := rc.GetBucketByName(b)
 	if err != nil {
 		return err
@@ -20,10 +24,86 @@ func (rc *RunscopeClient) ListTests(b string) error {
 		return err
 	}
 
-	for _, t := range *tests {
-		fmt.Println(t.Name)
+	if f == "json" {
+		data, err := json.MarshalIndent(*tests, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(data))
+	} else {
+		for _, t := range *tests {
+			fmt.Println(t.Name)
+		}
 	}
 
+	return nil
+}
+
+// ShowTest prints details for a given test
+func (rc *RunscopeClient) ShowTest(b string, t string, f string) error {
+	rc.Log.Debugf("Showing test '%s' in bucket '%s'", t, b)
+
+	bucket, err := rc.GetBucketByName(b)
+	if err != nil {
+		return err
+	}
+
+	test, err := rc.GetTestByName(bucket.Key, t)
+	if err != nil {
+		return err
+	}
+
+	schedules, err := rc.Runscope.ListSchedules(bucket.Key, test.ID)
+	if err != nil {
+		return err
+	}
+
+	environments, err := rc.Runscope.ListTestEnvironments(bucket.Key, test.ID)
+	if err != nil {
+		return err
+	}
+
+	steps, err := rc.Runscope.ListSteps(bucket.Key, test.ID)
+	if err != nil {
+		return err
+	}
+
+	test.Schedules = *schedules
+	test.Environments = *environments
+	test.Steps = *steps
+
+	if f == "json" {
+		data, err := json.MarshalIndent(test, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(data))
+	} else {
+		data := struct {
+			Test   runscope.Test
+			Bucket runscope.Bucket
+		}{
+			test,
+			bucket,
+		}
+
+		funcs := template.FuncMap{
+			"intToRFC3339":   intToRFC3339,
+			"floatToRFC3339": floatToRFC3339,
+		}
+
+		tmpl, err := template.New("").Funcs(funcs).ParseFiles("client/templates/show_test.tmpl")
+		if err != nil {
+			return err
+		}
+
+		var result bytes.Buffer
+		err = tmpl.Lookup("show_test.tmpl").Execute(&result, data)
+		if err != nil {
+			return err
+		}
+		fmt.Println(result.String())
+	}
 	return nil
 }
 
@@ -124,4 +204,46 @@ func (rc *RunscopeClient) updateTest(tc *config.TestConfig, testID string) error
 	}
 
 	return err
+}
+
+func (rc *RunscopeClient) printSteps(steps []runscope.Step, indent string) {
+	baseIndent := indent + "  "
+	fmt.Printf("%sSteps (%d):\n", baseIndent, len(steps))
+	for i, s := range steps {
+		i = i + 1
+		if s.StepType == "request" {
+			fmt.Printf("%s  %d. Request: %s %s\n", baseIndent, i, s.Method, s.URL)
+		}
+
+		if s.StepType == "condition" {
+			fmt.Printf("%s  %d. Condition: %s %s %s\n", baseIndent, i, s.LeftValue, s.Comparison, s.RightValue)
+		}
+
+		if len(s.Variables) != 0 {
+			fmt.Printf("%s    Variables: (%d):\n", baseIndent, len(s.Variables))
+			for _, v := range s.Variables {
+				varStr := fmt.Sprintf("%s = %s", v.Name, v.Source)
+				if v.Property != "" {
+					varStr = varStr + "." + v.Property
+				}
+				fmt.Printf("%s      %s\n", baseIndent, varStr)
+			}
+		}
+
+		if len(s.Assertions) != 0 {
+			fmt.Printf("%s    Assertions (%d):\n", baseIndent, len(s.Assertions))
+			for _, a := range s.Assertions {
+				aStr := a.Source
+				if a.Property != "" {
+					aStr = aStr + "." + a.Property
+				}
+				fmt.Printf("%s      %s %s %v\n", baseIndent, aStr, a.Comparison, a.Value.(interface{}))
+			}
+		}
+
+		if len(s.Steps) != 0 {
+			rc.printSteps(s.Steps, baseIndent)
+		}
+		fmt.Println("")
+	}
 }
