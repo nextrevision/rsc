@@ -1,9 +1,10 @@
 package client
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"time"
+	"html/template"
 
 	"github.com/nextrevision/rsc/config"
 
@@ -67,56 +68,41 @@ func (rc *RunscopeClient) ShowTest(b string, t string, f string) error {
 		return err
 	}
 
+	test.Schedules = *schedules
+	test.Environments = *environments
+	test.Steps = *steps
+
 	if f == "json" {
-		jsonTest := test
-		jsonTest.Schedules = *schedules
-		jsonTest.Environments = *environments
-		jsonTest.Steps = *steps
-		data, err := json.MarshalIndent(jsonTest, "", "  ")
+		data, err := json.MarshalIndent(test, "", "  ")
 		if err != nil {
 			return err
 		}
 		fmt.Println(string(data))
 	} else {
-
-		fmt.Printf("%s:\n", test.Name)
-		fmt.Printf("  Name: %s\n", test.Name)
-		fmt.Printf("  Bucket: %s (%s)\n", bucket.Name, bucket.Key)
-		fmt.Printf("  ID: %s\n", test.ID)
-		fmt.Printf("  Description: %s\n", test.Description)
-		fmt.Printf("  TriggerURL: %s\n", test.TriggerURL)
-
-		createdAt := time.Unix(int64(test.CreatedAt), 0)
-		fmt.Printf("  Created: %s (%s)\n", createdAt.Format(time.RFC3339), test.CreatedBy.Name)
-
-		finishedAt := time.Unix(int64(test.LastRun.FinishedAt), 0)
-		fmt.Printf("  LastRun: %s (%d errors)\n", finishedAt.Format(time.RFC3339), test.LastRun.ErrorCount)
-
-		if len(*schedules) != 0 {
-			fmt.Printf("  Schedules (%d):\n", len(*schedules))
-			for _, s := range *schedules {
-				fmt.Printf("    %s", s.Interval)
-				if s.Note != "" {
-					fmt.Printf(" (%s)", s.Note)
-				}
-				fmt.Printf("\n")
-			}
+		data := struct {
+			Test   runscope.Test
+			Bucket runscope.Bucket
+		}{
+			test,
+			bucket,
 		}
 
-		if len(*environments) != 0 {
-			fmt.Printf("  Environments (%d):\n", len(*environments))
-			for _, e := range *environments {
-				fmt.Printf("    %s:\n", e.Name)
-				if len(e.Regions) != 0 {
-					fmt.Printf("    Regions (%d):\n", len(e.Regions))
-				}
-			}
+		funcs := template.FuncMap{
+			"intToRFC3339":   intToRFC3339,
+			"floatToRFC3339": floatToRFC3339,
 		}
 
-		if len(*steps) != 0 {
-			rc.printSteps(*steps, "")
+		tmpl, err := template.New("").Funcs(funcs).ParseFiles("client/templates/show_test.tmpl")
+		if err != nil {
+			return err
 		}
 
+		var result bytes.Buffer
+		err = tmpl.Lookup("show_test.tmpl").Execute(&result, data)
+		if err != nil {
+			return err
+		}
+		fmt.Println(result.String())
 	}
 	return nil
 }

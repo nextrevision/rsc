@@ -1,6 +1,9 @@
 package client
 
-import "strings"
+import (
+	"strings"
+	"time"
+)
 
 // TriggerURL returns the trigger URL for a given test
 func (rc *RunscopeClient) TriggerURL(bucketName string, testName string) (string, error) {
@@ -30,4 +33,16 @@ func (rc *RunscopeClient) BatchURL(bucketName string, testName string) (string, 
 	}
 
 	return strings.Replace(test.TriggerURL, "trigger", "batch", 1), nil
+}
+
+// intToRFC3339 converts epoch time to a RFC3339 date
+func intToRFC3339(n int) string {
+	u := time.Unix(int64(n), 0)
+	return u.Format(time.RFC3339)
+}
+
+// floatToRFC3339 converts epoch time to a RFC3339 date
+func floatToRFC3339(n float64) string {
+	u := time.Unix(int64(n), 0)
+	return u.Format(time.RFC3339)
 }
