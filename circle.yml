@@ -1,7 +1,3 @@
-machine:
-  environment:
-    PATH: "/usr/local/go/bin:/usr/local/go_workspace/bin:~/.go_workspace/bin:${PATH}"
-    GOPATH: "${HOME}/.go_workspace:/usr/local/go_workspace:${HOME}/.go_project:${HOME}"
 dependencies:
   override:
     - go get github.com/Masterminds/glide
