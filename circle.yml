@@ -1,5 +1,6 @@
 dependencies:
   override:
+    - go build -v
     - go get github.com/Masterminds/glide
 test:
   override:
