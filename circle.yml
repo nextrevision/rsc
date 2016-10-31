@@ -3,15 +3,12 @@ machine:
     IMPORT_PATH: "/home/ubuntu/.go_workspace/src/github.com/nextrevision"
     APP_PATH: "$IMPORT_PATH/rsc"
 dependencies:
-  override:
-    - sudo add-apt-repository ppa:masterminds/glide -y
-    - sudo apt-get update
-    - sudo apt-get install glide -y
+  override: []
 test:
   pre:
     - mkdir -p "$IMPORT_PATH"
     - ln -sf "$(pwd)" "$APP_PATH"
-    - cd "$APP_PATH" && glide install
+    #- cd "$APP_PATH" && glide install
   override:
-    - cd "$APP_PATH" && go test -cover $(glide nv)
-    - cd "$APP_PATH" && go vet $(glide nv)
+    - go test -cover $(glide nv)
+    - go vet $(glide nv)
