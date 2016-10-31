@@ -5,6 +5,7 @@ machine:
 dependencies:
   override:
     - go get github.com/Masterminds/glide
+    - glide install
 test:
   pre:
     - mkdir -p "$IMPORT_PATH"
