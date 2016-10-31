@@ -132,7 +132,10 @@ func (rc *RunscopeClient) GetTestByName(bucketKey string, testName string) (runs
 func (rc *RunscopeClient) CreateOrUpdateTest(tc *config.TestConfig, d bool) error {
 	if tc.BucketKey == "" {
 		bucket, err := rc.GetBucketByName(tc.Bucket)
-		if err != nil {
+		if err != nil && d {
+			rc.Log.Infof("Would have created test: %s", tc.Name)
+			return nil
+		} else if err != nil {
 			rc.Log.Errorf("Could determine bucket for test: %s", tc.Name)
 			return err
 		}
