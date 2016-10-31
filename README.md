@@ -105,3 +105,10 @@ INFO[0001] Importing 2 tests...
 INFO[0002] Would have created test: MyFirstTest
 INFO[0002] Would have created test: MySecondTest
 ```
+
+#### Template Functions
+
+You can create templates for your tests (see `examples` directory). Inside of these templates, you can access information about other tests via template functions.
+
+* `<% TriggerURL bucketname testname %>`: returns the trigger URL for a given test
+* `<% TriggerURL bucketname testname %>`: returns the batch URL for a given test
