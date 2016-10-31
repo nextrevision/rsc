@@ -61,7 +61,7 @@ TestBanana
 Imports buckets and tests based on JSON config files and templates (see examples):
 
 ```
-$ rsc import --path examples
+$ rsc import --debug --path examples
 DEBU[0000] Creating bucket: MyBucket
 INFO[0000] Created bucket: MyBucket
 DEBU[0001] Found bucket by name: MyBucket
@@ -70,4 +70,21 @@ INFO[0002] Created test: MyFirstTest
 DEBU[0002] Found bucket by name: MyBucket
 DEBU[0002] Creating test: MySecondTest
 INFO[0003] Created test: MySecondTest
+```
+
+#### Dry Runs
+
+You can validate configs by running import with the flag `--dry-run`. This will perform every action except making the change to the bucket or test.
+
+```
+$ rsc import --debug --dry-run --path examples
+INFO[0000] Loading configs from examples...
+INFO[0000] Found 1 configs...
+INFO[0000] Loading templates from examples...
+INFO[0000] Found 1 templates...
+INFO[0000] Importing 1 buckets...
+INFO[0001] Would have created bucket: MyBucket
+INFO[0001] Importing 2 tests...
+INFO[0002] Would have created test: MyFirstTest
+INFO[0002] Would have created test: MySecondTest
 ```
