@@ -3,8 +3,10 @@ package client
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/nextrevision/rsc/config"
+	"github.com/nextrevision/rsc/helper"
 
 	"github.com/nextrevision/go-runscope"
 )
@@ -17,17 +19,12 @@ func (rc *RunscopeClient) ListBuckets(f string) error {
 		return err
 	}
 
-	if f == "json" {
-		data, err := json.MarshalIndent(*buckets, "", "  ")
-		if err != nil {
-			return err
-		}
-		fmt.Println(string(data))
-	} else {
-		for _, b := range *buckets {
-			fmt.Println(b.Name)
-		}
+	header := []string{"Name", "Team", "Default"}
+	rows := [][]string{}
+	for _, b := range *buckets {
+		rows = append(rows, []string{b.Name, b.Team.Name, strconv.FormatBool(b.Default)})
 	}
+	helper.WriteTable(header, rows)
 
 	return nil
 }
@@ -40,21 +37,11 @@ func (rc *RunscopeClient) ShowBucket(b string, f string) error {
 		return err
 	}
 
-	if f == "json" {
-		data, err := json.MarshalIndent(bucket, "", "  ")
-		if err != nil {
-			return err
-		}
-		fmt.Println(string(data))
-	} else {
-
-		fmt.Printf("%s:\n", bucket.Name)
-		fmt.Printf("  Name: %s\n", bucket.Name)
-		fmt.Printf("  Key: %s\n", bucket.Key)
-		fmt.Printf("  Team: %s (%s)\n", bucket.Team.Name, bucket.Team.ID)
-		fmt.Printf("  Default: %t\n", bucket.Default)
-		fmt.Printf("  VerifySSL: %t\n", bucket.VerifySSL)
+	data, err := json.MarshalIndent(bucket, "", "  ")
+	if err != nil {
+		return err
 	}
+	fmt.Println(string(data))
 
 	return nil
 }

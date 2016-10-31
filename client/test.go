@@ -1,12 +1,12 @@
 package client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"html/template"
+	"time"
 
 	"github.com/nextrevision/rsc/config"
+	"github.com/nextrevision/rsc/helper"
 
 	"github.com/nextrevision/go-runscope"
 )
@@ -24,17 +24,19 @@ func (rc *RunscopeClient) ListTests(b string, f string) error {
 		return err
 	}
 
-	if f == "json" {
-		data, err := json.MarshalIndent(*tests, "", "  ")
-		if err != nil {
-			return err
-		}
-		fmt.Println(string(data))
-	} else {
-		for _, t := range *tests {
-			fmt.Println(t.Name)
-		}
+	header := []string{"Name", "Created By", "Last Run", "Last Status", "Description"}
+	rows := [][]string{}
+	for _, t := range *tests {
+		lastRun := time.Unix(int64(t.LastRun.FinishedAt), 0)
+		rows = append(rows, []string{
+			t.Name,
+			t.CreatedBy.Name,
+			lastRun.Format(time.RFC3339),
+			t.LastRun.Status,
+			helper.TruncateString(t.Description, 30),
+		})
 	}
+	helper.WriteTable(header, rows)
 
 	return nil
 }
@@ -72,38 +74,12 @@ func (rc *RunscopeClient) ShowTest(b string, t string, f string) error {
 	test.Environments = *environments
 	test.Steps = *steps
 
-	if f == "json" {
-		data, err := json.MarshalIndent(test, "", "  ")
-		if err != nil {
-			return err
-		}
-		fmt.Println(string(data))
-	} else {
-		data := struct {
-			Test   runscope.Test
-			Bucket runscope.Bucket
-		}{
-			test,
-			bucket,
-		}
-
-		funcs := template.FuncMap{
-			"intToRFC3339":   intToRFC3339,
-			"floatToRFC3339": floatToRFC3339,
-		}
-
-		tmpl, err := template.New("").Funcs(funcs).ParseFiles("client/templates/show_test.tmpl")
-		if err != nil {
-			return err
-		}
-
-		var result bytes.Buffer
-		err = tmpl.Lookup("show_test.tmpl").Execute(&result, data)
-		if err != nil {
-			return err
-		}
-		fmt.Println(result.String())
+	data, err := json.MarshalIndent(test, "", "  ")
+	if err != nil {
+		return err
 	}
+	fmt.Println(string(data))
+
 	return nil
 }
 

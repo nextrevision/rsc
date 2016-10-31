@@ -1,59 +1,94 @@
-hash: fb92f38c54a2d8abb88ae19ad25f6b884acd9867c2d285aea76374bead2abff0
-updated: 2016-05-11T13:41:29.436358237-04:00
+hash: 54e630c536294f945f02611963ade644dee38fba6b6db401821791e59e0398b9
+updated: 2016-10-31T15:48:55.383359546-04:00
 imports:
-- name: github.com/BurntSushi/toml
-  version: f0aeabca5a127c4078abb8c8d64298b147264b55
 - name: github.com/fsnotify/fsnotify
-  version: 30411dbcefb7a1da7e84f75530ad3abe4011b4f8
+  version: fd9ec7deca8bf46ecd2a795baaacf2b3a9be1197
 - name: github.com/hashicorp/hcl
-  version: 9a905a34e6280ce905da1a32344b25e81011197a
+  version: 99df0eb941dd8ddbc83d3f3605a34f6a686ac85e
   subpackages:
   - hcl/ast
   - hcl/parser
-  - hcl/token
-  - json/parser
   - hcl/scanner
   - hcl/strconv
+  - hcl/token
+  - json/parser
   - json/scanner
   - json/token
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/kr/fs
+  version: 2788f0dbd16903de03cb8186e5c7d97b69ad387b
 - name: github.com/magiconair/properties
-  version: c265cfa48dda6474e208715ca93e987829f572f8
+  version: 0723e352fa358f9322c938cc2dadda874e9151a9
+- name: github.com/mattn/go-runewidth
+  version: 737072b4e32b7a5018b4a7125da8d12de90e8045
 - name: github.com/mitchellh/mapstructure
-  version: d2dd0262208475919e1a362f675cfc0e7c10e905
+  version: f3009df150dadf309fdee4a54ed65c124afad715
 - name: github.com/moul/http2curl
-  version: 1812aee76a1ce98d604a44200c6a23c689b17a89
+  version: 4e24498b31dba4683efb9d35c1c8a91e2eda28c8
 - name: github.com/nextrevision/go-runscope
-  version: 59f0bc8e17d52b2ca9b0e7c801db253e12132685
+  version: c8fd0c0e4baf79e3508294d706d1d9f93d51c27c
+- name: github.com/olekukonko/tablewriter
+  version: bdcc175572fd7abece6c831e643891b9331bc9e7
 - name: github.com/parnurzeal/gorequest
-  version: a39a2f8d0463091df7344dbf586a9986e9f7184f
+  version: e37b9d1efacf7c94820b29b75dd7d0c2996b3fb1
+- name: github.com/pelletier/go-buffruneio
+  version: df1e16fde7fc330a0ca68167c23bf7ed6ac31d6d
+- name: github.com/pelletier/go-toml
+  version: 45932ad32dfdd20826f5671da37a5f3ce9f26a8d
+- name: github.com/pkg/errors
+  version: 248dadf4e9068a0b3e79f02ed0a610d935de5302
+- name: github.com/pkg/sftp
+  version: 4d0e916071f68db74f8a73926335f809396d6b42
 - name: github.com/Sirupsen/logrus
-  version: cd7d1bbe41066b6c1f19780f895901052150a575
+  version: 3ec0642a7fb6488f65b06f9040adc67e3990296a
+- name: github.com/spf13/afero
+  version: 52e4a6cfac46163658bd4f123c49b6ee7dc75f78
+  subpackages:
+  - mem
+  - sftp
 - name: github.com/spf13/cast
-  version: 27b586b42e29bec072fe7379259cc719e1289da6
+  version: 2580bc98dc0e62908119e4737030cc2fdfc45e4c
 - name: github.com/spf13/cobra
-  version: 0f866a6211e33cde2091d9290c08f6afd6c9ebbc
+  version: 6e91dded25d73176bf7f60b40dd7aa1f0bf9be8d
 - name: github.com/spf13/jwalterweatherman
   version: 33c24e77fb80341fe7130ee7c594256ff08ccc46
 - name: github.com/spf13/pflag
-  version: cb88ea77998c3f024757528e3305022ab50b43be
+  version: 7b17cc4658ef5ca157b986ea5c0b43af7938532b
 - name: github.com/spf13/viper
-  version: d8a428b8a30606e1d0b355d91edf282609ade1a6
+  version: 651d9d916abc3c3d6a91a12549495caba5edffd2
 - name: github.com/stretchr/testify
-  version: 6cb3b85ef5a0efef77caef88363ec4d4b5c0976d
+  version: 976c720a22c8eb4eb6a0b4348ad85ad12491a506
   subpackages:
   - assert
 - name: github.com/unrolled/render
-  version: 198ad4d8b8a4612176b804ca10555b222a086b40
+  version: 526faf80cd4b305bb8134abea8d20d5ced74faa6
+- name: golang.org/x/crypto
+  version: f18420efc3b4f8e9f3d51f6bd2476e92c46260e9
+  subpackages:
+  - curve25519
+  - ssh
 - name: golang.org/x/net
-  version: 96dbb961a39ddccf16860cdd355bfa639c497f23
+  version: f315505cf3349909cdf013ea56690da34e96a451
   subpackages:
   - publicsuffix
 - name: golang.org/x/sys
-  version: b776ec39b3e54652e09028aaaaac9757f4f8211a
+  version: 30de6d19a3bd89a5f38ae4028e23aaa5582648af
   subpackages:
   - unix
+- name: golang.org/x/text
+  version: cf4986612c83df6c55578ba198316d1684a9a287
+  subpackages:
+  - transform
+  - unicode/norm
 - name: gopkg.in/yaml.v2
-  version: a83829b6f1293c91addabc89d0571c246397bbf4
-devImports: []
+  version: f7716cbe52baa25d2e9b0d0da546fcf909fc16b4
+testImports:
+- name: github.com/davecgh/go-spew
+  version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
+  subpackages:
+  - spew
+- name: github.com/pmezard/go-difflib
+  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
+  subpackages:
+  - difflib
