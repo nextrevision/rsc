@@ -3,7 +3,8 @@ machine:
     IMPORT_PATH: "/home/ubuntu/.go_workspace/src/github.com/nextrevision"
     APP_PATH: "$IMPORT_PATH/rsc"
 dependencies:
-  override: []
+  override:
+    - go get github.com/Masterminds/glide
 test:
   pre:
     - mkdir -p "$IMPORT_PATH"
