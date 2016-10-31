@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/nextrevision/rsc.svg?style=svg)](https://circleci.com/gh/nextrevision/rsc)
 
-A Runscope Command Line Client
+RSC is a [Runscope](https://runscope.com) command line client used to manage resources in a Runscope account.
 
 ## Usage
 
@@ -24,6 +24,23 @@ Flags:
       --verbose        enable verbose output
 
 Use "rsc [command] --help" for more information about a command.
+```
+
+## Authenticating to Runscope
+
+In order to use rsc, you need to obtain an access token for your account (you can find details on how to obtain an access token [here](https://www.runscope.com/docs/api/authentication#apps)). Once you have your access token, you can set it either by the `RSC_TOKEN` environment variable or by passing it as a flag with `--token`.
+
+### Environment Variable
+
+```
+$ export RSC_TOKEN=xxxxxxxxxx-xxxx-xxxx-xxxxxxxxxxx
+$ rsc ...
+```
+
+### CLI Flag
+
+```
+$ rsc --token xxxxxxxxxx-xxxx-xxxx-xxxxxxxxxxx ...
 ```
 
 ## Examples
