@@ -13,12 +13,14 @@ var RootCmd = &cobra.Command{
                 with the Runscope service.`,
 }
 
-var token string
-var debug bool
-var verbose bool
-var dryRun bool
-var bucket string
-var format string
+var (
+	token   string
+	debug   bool
+	verbose bool
+	dryRun  bool
+	bucket  string
+	format  = "json"
+)
 
 func init() {
 	viper.SetEnvPrefix("rsc")
@@ -26,14 +28,5 @@ func init() {
 	RootCmd.PersistentFlags().StringVar(&token, "token", viper.GetString("token"), "runscope authentication token")
 	RootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "enable debug output")
 	RootCmd.PersistentFlags().BoolVar(&verbose, "verbose", false, "enable verbose output")
-	RootCmd.PersistentFlags().StringVarP(&format, "format", "f", "", "output format (cli, json)")
-
-	//RootCmd.PersistentFlags().StringVarP(&projectBase, "projectbase", "b", "", "base project directory eg. github.com/spf13/")
-	//RootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "Name of license for the project (can provide `licensetext` in config)")
-	//RootCmd.PersistentFlags().Bool("viper", true, "Use Viper for configuration")
-	//viper.BindPFlag("author", RootCmd.PersistentFlags().Lookup("author"))
-	//viper.BindPFlag("projectbase", RootCmd.PersistentFlags().Lookup("projectbase"))
-	//viper.BindPFlag("useViper", RootCmd.PersistentFlags().Lookup("viper"))
-	//viper.SetDefault("author", "NAME HERE <EMAIL ADDRESS>")
-	//viper.SetDefault("license", "apache")
+	//RootCmd.PersistentFlags().StringVarP(&format, "format", "f", "", "output format (cli, json)")
 }

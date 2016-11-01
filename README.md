@@ -14,8 +14,10 @@ Usage:
   rsc [command]
 
 Available Commands:
+  delete      delete a resource from Runscope
   import      import tests from a path of configs and templates
   list        show a listing of resources
+  show        show a showing of resources
   version     print the version number of rsc
 
 Flags:
@@ -57,9 +59,10 @@ Returns a listing of all buckets for an account:
 
 ```
 $ rsc list buckets
-MyFirstBucket
-MySecondBucket
-ProdBucket
+  NAME              TEAM        DEFAULT
+  MyFirstBucket     Team1       true
+  MySecondBucket    Team1       false
+  ProdBucket        Team2       true
 ```
 
 ### Listing Tests
@@ -67,10 +70,12 @@ ProdBucket
 Returns a listing of all tests for a given bucket:
 
 ```
+  quoting3_api                 Ross Lambert    2016-08-22T23:11:02-04:00   error
 $ rsc list tests -b MyFirstBucket
-TestFoo
-TestBar
-TestBanana
+  NAME                         CREATED BY      LAST RUN                    LAST STATUS   DESCRIPTION
+  TestFoo                      Bob             2016-08-22T23:11:02-04:00   success       A decent test for Foo
+  TestBar                      Jerry           2016-06-13T23:02:12-09:00   error         Tests that Bar is compliant with oth...
+  TestBanana                   Bob             2016-08-22T23:11:02-04:00   success
 ```
 
 ### Importing Buckets and Tests
