@@ -116,3 +116,12 @@ You can create templates for your tests (see `examples` directory). Inside of th
 
 * `<% TriggerURL bucketname testname %>`: returns the trigger URL for a given test
 * `<% TriggerURL bucketname testname %>`: returns the batch URL for a given test
+
+## Developing
+
+```
+go get github.com/Masterminds/glide
+glide install
+go test -v $(glide nv)
+go vet $(glide nv)
+```
