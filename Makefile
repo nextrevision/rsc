@@ -3,13 +3,8 @@ TEST?=
 default: test
 
 test:
-	go vet ./...
-	go test -v ./...
-
-cover:
-	go test $(TEST) -covermode=count -coverprofile=coverage.out
-	go tool cover -html=coverage.out
-	rm coverage.out
+	go vet `glide nv`
+	go test -v `glide nv`
 
 build:
 	gox -os="darwin linux"

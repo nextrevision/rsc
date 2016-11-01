@@ -121,7 +121,5 @@ You can create templates for your tests (see `examples` directory). Inside of th
 
 ```
 go get github.com/Masterminds/glide
-glide install
-go test -v $(glide nv)
-go vet $(glide nv)
+make test
 ```

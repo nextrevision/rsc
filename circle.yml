@@ -1,15 +1,13 @@
 machine:
   environment:
-    IMPORT_PATH: "/home/ubuntu/.go_workspace/src/github.com/nextrevision"
-    APP_PATH: "$IMPORT_PATH/rsc"
+    APP_PATH: /home/ubuntu/.go_workspace/src/github.com/nextrevision/rsc
 dependencies:
   override:
     - go get github.com/Masterminds/glide
     - glide install
 test:
   pre:
-    - mkdir -p "$IMPORT_PATH"
-    - ln -sf "$(pwd)" "$APP_PATH"
+    - mkdir -p /home/ubuntu/.go_workspace/src/github.com/nextrevision
+    - ln -sf $(pwd) $APP_PATH
   override:
-    - cd $APP_PATH && go test -v -cover $(glide nv)
-    - cd $APP_PATH && go vet $(glide nv)
+    - cd $APP_PATH && make test
