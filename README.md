@@ -70,7 +70,6 @@ $ rsc list buckets
 Returns a listing of all tests for a given bucket:
 
 ```
-  quoting3_api                 Ross Lambert    2016-08-22T23:11:02-04:00   error
 $ rsc list tests -b MyFirstBucket
   NAME                         CREATED BY      LAST RUN                    LAST STATUS   DESCRIPTION
   TestFoo                      Bob             2016-08-22T23:11:02-04:00   success       A decent test for Foo
