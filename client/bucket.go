@@ -21,7 +21,7 @@ func (rc *RunscopeClient) ListBuckets(f string) error {
 
 	header := []string{"Name", "Team", "Default"}
 	rows := [][]string{}
-	for _, b := range *buckets {
+	for _, b := range buckets {
 		rows = append(rows, []string{b.Name, b.Team.Name, strconv.FormatBool(b.Default)})
 	}
 	helper.WriteTable(header, rows)
@@ -54,7 +54,7 @@ func (rc *RunscopeClient) GetBucketByName(name string) (runscope.Bucket, error) 
 		return runscope.Bucket{}, err
 	}
 
-	for _, bucket := range *buckets {
+	for _, bucket := range buckets {
 		if name == bucket.Name {
 			rc.Log.Debugf("Found bucket by name: %s", bucket.Name)
 			return bucket, nil
@@ -73,7 +73,7 @@ func (rc *RunscopeClient) CreateOrUpdateBucket(bc *config.BucketConfig, d bool) 
 		return runscope.Bucket{}, err
 	}
 
-	for _, bucket := range *buckets {
+	for _, bucket := range buckets {
 		if bucket.Name == bc.Name {
 			// TODO: support updating buckets
 			rc.Log.Debugf("Bucket already exists: %s", bc.Name)
@@ -112,5 +112,5 @@ func (rc *RunscopeClient) createBucket(bc *config.BucketConfig) (runscope.Bucket
 	} else {
 		rc.Log.Errorf("Error creating bucket: %s", bc.Name)
 	}
-	return *bucket, err
+	return bucket, err
 }

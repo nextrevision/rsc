@@ -31,7 +31,7 @@ func NewRunscopeClient(token string, debug bool, verbose bool) (*RunscopeClient,
 		return rc, errors.New("must specify token")
 	}
 
-	rc.Runscope = runscope.NewClient(&runscope.Options{
+	rc.Runscope = runscope.NewClient(runscope.Options{
 		Token: token,
 	})
 
