@@ -19,14 +19,14 @@ func (rc *RunscopeClient) ListTests(b string, f string) error {
 		return err
 	}
 
-	tests, err := rc.Runscope.ListTests(bucket.Key)
+	tests, err := rc.Runscope.ListAllTests(bucket.Key)
 	if err != nil {
 		return err
 	}
 
 	header := []string{"Name", "Created By", "Last Run", "Last Status", "Description"}
 	rows := [][]string{}
-	for _, t := range *tests {
+	for _, t := range tests {
 		lastRun := time.Unix(int64(t.LastRun.FinishedAt), 0)
 		rows = append(rows, []string{
 			t.Name,
@@ -55,24 +55,20 @@ func (rc *RunscopeClient) ShowTest(b string, t string, f string) error {
 		return err
 	}
 
-	schedules, err := rc.Runscope.ListSchedules(bucket.Key, test.ID)
+	test.Schedules, err = rc.Runscope.ListSchedules(bucket.Key, test.ID)
 	if err != nil {
 		return err
 	}
 
-	environments, err := rc.Runscope.ListTestEnvironments(bucket.Key, test.ID)
+	test.Environments, err = rc.Runscope.ListTestEnvironments(bucket.Key, test.ID)
 	if err != nil {
 		return err
 	}
 
-	steps, err := rc.Runscope.ListSteps(bucket.Key, test.ID)
+	test.Steps, err = rc.Runscope.ListSteps(bucket.Key, test.ID)
 	if err != nil {
 		return err
 	}
-
-	test.Schedules = *schedules
-	test.Environments = *environments
-	test.Steps = *steps
 
 	data, err := json.MarshalIndent(test, "", "  ")
 	if err != nil {
@@ -88,12 +84,12 @@ func (rc *RunscopeClient) ShowTest(b string, t string, f string) error {
 func (rc *RunscopeClient) GetTestByName(bucketKey string, testName string) (runscope.Test, error) {
 	var test = runscope.Test{}
 
-	tests, err := rc.Runscope.ListTests(bucketKey)
+	tests, err := rc.Runscope.ListAllTests(bucketKey)
 	if err != nil {
 		return test, err
 	}
 
-	for _, t := range *tests {
+	for _, t := range tests {
 		if t.Name == testName {
 			return t, nil
 		}
@@ -119,13 +115,13 @@ func (rc *RunscopeClient) CreateOrUpdateTest(tc *config.TestConfig, d bool) erro
 		tc.BucketKey = bucket.Key
 	}
 
-	tests, err := rc.Runscope.ListTests(tc.BucketKey)
+	tests, err := rc.Runscope.ListAllTests(tc.BucketKey)
 	if err != nil {
 		rc.Log.Errorf("Could list tests for bucket: %s", tc.BucketKey)
 		return err
 	}
 
-	for _, test := range *tests {
+	for _, test := range tests {
 		if test.Name == tc.Name {
 			if d {
 				rc.Log.Infof("Would have updated test: %s", tc.Name)

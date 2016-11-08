@@ -1,5 +1,5 @@
-hash: d609a85812b756fcf3acf58ac83b3be57499d59c204a1484bd857b61ecef7899
-updated: 2016-10-31T17:11:18.599514164-04:00
+hash: ee2ca9ddcd9f8c5327265327cd64bb8d30e2523577b9f994fc1a2ba9508e9c22
+updated: 2016-11-08T15:25:36.479155331-05:00
 imports:
 - name: github.com/fsnotify/fsnotify
   version: fd9ec7deca8bf46ecd2a795baaacf2b3a9be1197
@@ -27,7 +27,7 @@ imports:
 - name: github.com/moul/http2curl
   version: 4e24498b31dba4683efb9d35c1c8a91e2eda28c8
 - name: github.com/nextrevision/go-runscope
-  version: c8fd0c0e4baf79e3508294d706d1d9f93d51c27c
+  version: 8bbabf99f40cc0f1a82ddd4f8670ddf6f7ccaf0e
 - name: github.com/olekukonko/tablewriter
   version: bdcc175572fd7abece6c831e643891b9331bc9e7
 - name: github.com/parnurzeal/gorequest
