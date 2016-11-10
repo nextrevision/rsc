@@ -12,9 +12,9 @@ import (
 )
 
 // ListTests prints all tests in a given bucket
-func (rc *RunscopeClient) ListTests(b string, f string) error {
-	rc.Log.Debugf("Listing tests in bucket '%s'", b)
-	bucket, err := rc.GetBucketByName(b)
+func (rc *RunscopeClient) ListTests(bucketName string, format string) error {
+	rc.Log.Debugf("Listing tests in bucket '%s'", bucketName)
+	bucket, err := rc.GetBucketByName(bucketName)
 	if err != nil {
 		return err
 	}
@@ -24,33 +24,41 @@ func (rc *RunscopeClient) ListTests(b string, f string) error {
 		return err
 	}
 
-	header := []string{"Name", "Created By", "Last Run", "Last Status", "Description"}
-	rows := [][]string{}
-	for _, t := range tests {
-		lastRun := time.Unix(int64(t.LastRun.FinishedAt), 0)
-		rows = append(rows, []string{
-			t.Name,
-			t.CreatedBy.Name,
-			lastRun.Format(time.RFC3339),
-			t.LastRun.Status,
-			helper.TruncateString(t.Description, 30),
-		})
+	if format == "json" {
+		data, err := json.MarshalIndent(tests, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(data))
+	} else {
+		header := []string{"Name", "Created By", "Last Run", "Last Status", "Description"}
+		rows := [][]string{}
+		for _, t := range tests {
+			lastRun := time.Unix(int64(t.LastRun.FinishedAt), 0)
+			rows = append(rows, []string{
+				t.Name,
+				t.CreatedBy.Name,
+				lastRun.Format(time.RFC3339),
+				t.LastRun.Status,
+				helper.TruncateString(t.Description, 30),
+			})
+		}
+		helper.WriteTable(header, rows)
 	}
-	helper.WriteTable(header, rows)
 
 	return nil
 }
 
 // ShowTest prints details for a given test
-func (rc *RunscopeClient) ShowTest(b string, t string, f string) error {
-	rc.Log.Debugf("Showing test '%s' in bucket '%s'", t, b)
+func (rc *RunscopeClient) ShowTest(bucketName string, testName string, format string) error {
+	rc.Log.Debugf("Showing test '%s' in bucket '%s'", testName, bucketName)
 
-	bucket, err := rc.GetBucketByName(b)
+	bucket, err := rc.GetBucketByName(bucketName)
 	if err != nil {
 		return err
 	}
 
-	test, err := rc.GetTestByName(bucket.Key, t)
+	test, err := rc.GetTestByName(bucket.Key, testName)
 	if err != nil {
 		return err
 	}
@@ -70,6 +78,7 @@ func (rc *RunscopeClient) ShowTest(b string, t string, f string) error {
 		return err
 	}
 
+	// only support json format
 	data, err := json.MarshalIndent(test, "", "  ")
 	if err != nil {
 		return err

@@ -28,5 +28,4 @@ func init() {
 	RootCmd.PersistentFlags().StringVar(&token, "token", viper.GetString("token"), "runscope authentication token")
 	RootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "enable debug output")
 	RootCmd.PersistentFlags().BoolVar(&verbose, "verbose", false, "enable verbose output")
-	//RootCmd.PersistentFlags().StringVarP(&format, "format", "f", "", "output format (cli, json)")
 }

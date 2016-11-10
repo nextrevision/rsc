@@ -57,6 +57,7 @@ var showTestCmd = &cobra.Command{
 
 func init() {
 	showTestCmd.Flags().StringVarP(&bucket, "bucket", "b", "", "bucket that contains the test")
+	showCmd.PersistentFlags().StringVarP(&format, "format", "f", "", "output format (only json supported)")
 
 	showCmd.AddCommand(showBucketCmd)
 	showCmd.AddCommand(showTestCmd)

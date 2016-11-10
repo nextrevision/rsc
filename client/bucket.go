@@ -12,31 +12,40 @@ import (
 )
 
 // ListBuckets prints all buckets in the account
-func (rc *RunscopeClient) ListBuckets(f string) error {
+func (rc *RunscopeClient) ListBuckets(format string) error {
 
 	buckets, err := rc.Runscope.ListBuckets()
 	if err != nil {
 		return err
 	}
 
-	header := []string{"Name", "Team", "Default"}
-	rows := [][]string{}
-	for _, b := range buckets {
-		rows = append(rows, []string{b.Name, b.Team.Name, strconv.FormatBool(b.Default)})
+	if format == "json" {
+		data, err := json.MarshalIndent(buckets, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(data))
+	} else {
+		header := []string{"Name", "Team", "Default"}
+		rows := [][]string{}
+		for _, b := range buckets {
+			rows = append(rows, []string{b.Name, b.Team.Name, strconv.FormatBool(b.Default)})
+		}
+		helper.WriteTable(header, rows)
 	}
-	helper.WriteTable(header, rows)
 
 	return nil
 }
 
 // ShowBucket prints details for a given bucket
-func (rc *RunscopeClient) ShowBucket(b string, f string) error {
+func (rc *RunscopeClient) ShowBucket(name string, format string) error {
 
-	bucket, err := rc.GetBucketByName(b)
+	bucket, err := rc.GetBucketByName(name)
 	if err != nil {
 		return err
 	}
 
+	// only supports json format for now
 	data, err := json.MarshalIndent(bucket, "", "  ")
 	if err != nil {
 		return err
