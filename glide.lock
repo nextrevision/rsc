@@ -1,6 +1,8 @@
 hash: 2873ffb29904dc303a0464a3ae4e611088b450945a20a7b0a9a47c4829ff5f71
 updated: 2017-05-08T12:22:23.654809837-04:00
 imports:
+- name: github.com/deckarep/golang-set
+  version: 52ba7f28f319e9d560acbf47c7fcf9b9ee7aa7d3
 - name: github.com/fsnotify/fsnotify
   version: fd9ec7deca8bf46ecd2a795baaacf2b3a9be1197
 - name: github.com/hashicorp/hcl

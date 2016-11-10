@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/nextrevision/rsc/client"
-	"github.com/nextrevision/rsc/config"
+	rscConfig "github.com/nextrevision/rsc/config"
 
 	"github.com/spf13/cobra"
 )
@@ -31,14 +31,14 @@ var importCmd = &cobra.Command{
 		}
 
 		c.Log.Infof("Loading configs from %s...", importPath)
-		configs, err := config.LoadConfigs(importPath)
+		configs, err := rscConfig.LoadConfigs(importPath)
 		if err != nil {
 			c.Log.Fatal(err)
 		}
 		c.Log.Infof("Found %d configs...", len(configs))
 
 		c.Log.Infof("Loading templates from %s...", importPath)
-		templates, err := config.LoadTemplates(importPath, funcs)
+		templates, err := rscConfig.LoadTemplates(importPath, funcs)
 		if err != nil {
 			c.Log.Fatal(err)
 		}
@@ -47,8 +47,13 @@ var importCmd = &cobra.Command{
 		for _, config := range configs {
 			if config.Buckets != nil && strings.Contains("buckets", importInclude) && !convert {
 				c.Log.Infof("Importing %d buckets...", len(config.Buckets))
-				for _, bucket := range config.Buckets {
 
+				orderedBuckets, err := rscConfig.OrderBuckets(config.Buckets)
+				if err != nil {
+					c.Log.Fatal(err)
+				}
+
+				for _, bucket := range orderedBuckets {
 					if bucket.TeamID == "" {
 						defaultTeam, err := c.GetDefaultTeam()
 						if err != nil {

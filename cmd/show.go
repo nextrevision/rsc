@@ -10,12 +10,12 @@ import (
 
 var showCmd = &cobra.Command{
 	Use:   "show",
-	Short: "show a showing of resources",
+	Short: "show details of a resource",
 }
 
 var showBucketCmd = &cobra.Command{
 	Use:   "bucket",
-	Short: "show the details of a bucket",
+	Short: "show details of a bucket",
 	Run: func(cmd *cobra.Command, args []string) {
 		c, err := client.NewRunscopeClient(token, debug, verbose)
 		if err != nil {
