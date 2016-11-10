@@ -14,7 +14,10 @@ deploy:
   provider: releases
   api_key:
     secure: cNz9xRHoyqsZsffzytQWXefECgbnTWj+esMm8GGP2GIdd6SV4zELI9+lL7YyRCOclTB/Aujo495v206udEZYi5xxMeg5aiARnuMXJsW1TdC9lj8902VYdDwC1Mc9Vfi2UbYANy4rtBJniSjR26QCCFxH8DFEhmQorBl+IN368qu5ZwavUydsA9EkWDwVSaWF/Ll+6hsFEPwBQNjgyqhPEb4aX4yKPbfu+pwl1VqpPRL0rsmTR1PQ7klMQuqbowfieywwUdh3sql/QrTrM3F8Ts3ZQeDa1K63/cY6fdz8hcTAX8tpVt57wNwsShsuUqZ+kupa/tUf3Tpc885YFPi6XWCmJRvjUWl60JLga9m7t0GLD2iMz0URkrbgHvfe6ToOhzDIcOG8TqqO5cjvYBajJAHCtaJgCoSOf7wYnIPHnlDeH8mgg88w38Mh4vkC6fRxuNZpJxSSzYtRJAv1cMLv/9IB0w/wf7zNEL2JFG5qt1PfQJHJBAsXZklHybkbdcNWW+aUtIYma8rA7tV09ChloHboFuUdktTrughip7XDQSzzfIgAxIslK9xR+ahOLPFzp3e9/DK+o+c4dsoG5A16CfcTui5vbyt56HAKglm6pADpp3vBi0JgSMdAVkqy8DefHX1+01LADK2WPUCK/7YHFOQ0ZK1h6E2ebYE8XjhF9Z8=
-  file: rsc_*_amd64*
+  file:
+  - rsc_linux_amd64
+  - rsc_darwin_amd64
+  - rsc_windows_amd64.exe
   on:
     tags: true
     repo: nextrevision/rsc
