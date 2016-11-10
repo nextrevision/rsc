@@ -55,6 +55,7 @@ func init() {
 	listCmd.AddCommand(listBucketsCmd)
 
 	listTestsCmd.Flags().StringVarP(&bucket, "bucket", "b", "", "bucket to list tests in")
+	listCmd.PersistentFlags().StringVarP(&format, "format", "f", "", "output format (cli, json)")
 	listCmd.AddCommand(listTestsCmd)
 
 	RootCmd.AddCommand(listCmd)
