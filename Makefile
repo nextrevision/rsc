@@ -7,7 +7,7 @@ test:
 	go test -v `glide nv`
 
 build:
-	gox -os="darwin linux" -osarch="amd64"
+	gox -osarch="darwin/amd64 linux/amd64 windows/amd64"
 
 build-ci:
 	go get github.com/mitchellh/gox
