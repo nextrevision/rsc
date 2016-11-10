@@ -1,11 +1,9 @@
 language: go
 go:
 - 1.7
-cache:
-  directories:
-  - vendor
 install:
 - go get -u github.com/Masterminds/glide
+- glide install
 script:
 - make test
 before_deploy:
