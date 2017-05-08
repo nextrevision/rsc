@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"fmt"
+	"html"
 	"html/template"
 	"strings"
 
@@ -12,6 +14,7 @@ import (
 
 var importPath string
 var importInclude string
+var convert bool
 
 var importCmd = &cobra.Command{
 	Use:   "import",
@@ -42,7 +45,7 @@ var importCmd = &cobra.Command{
 		c.Log.Infof("Found %d templates...", len(templates))
 
 		for _, config := range configs {
-			if config.Buckets != nil && strings.Contains("buckets", importInclude) {
+			if config.Buckets != nil && strings.Contains("buckets", importInclude) && !convert {
 				c.Log.Infof("Importing %d buckets...", len(config.Buckets))
 				for _, bucket := range config.Buckets {
 
@@ -74,9 +77,12 @@ var importCmd = &cobra.Command{
 						c.Log.Fatal(err)
 					}
 
-					test.Bytes = data
+					htmlSafeString := html.UnescapeString(string(data))
+					test.Bytes = []byte(htmlSafeString)
 
-					if err = c.CreateOrUpdateTest(&test, dryRun); err != nil {
+					if convert {
+						fmt.Printf("%s", string(test.Bytes))
+					} else if err = c.CreateOrUpdateTest(&test, dryRun); err != nil {
 						c.Log.Fatal(err)
 					}
 				}
@@ -88,6 +94,7 @@ var importCmd = &cobra.Command{
 func init() {
 	importCmd.Flags().StringVarP(&importPath, "path", "p", ".", "base path to search for configs and templates")
 	importCmd.Flags().StringVarP(&importInclude, "include", "i", "", "comma-separated list of types to import (bucket, tests)")
+	importCmd.Flags().BoolVarP(&convert, "convert", "c", false, "only convert the files into raw JSON (only applicable for tests)")
 	importCmd.Flags().BoolVarP(&dryRun, "dry-run", "d", false, "print what you would do, but don't actually do anything")
 
 	RootCmd.AddCommand(importCmd)
