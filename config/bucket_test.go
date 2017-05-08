@@ -6,7 +6,7 @@ func TestOrderBuckets(t *testing.T) {
 	buckets := []BucketConfig{
 		BucketConfig{
 			Name:    "b3",
-			Depends: []string{"b2", "b4"},
+			Depends: []string{"b2"},
 		},
 		BucketConfig{
 			Name:    "b1",
@@ -18,25 +18,25 @@ func TestOrderBuckets(t *testing.T) {
 		},
 		BucketConfig{
 			Name:    "b4",
-			Depends: []string{},
+			Depends: []string{"b2", "b3"},
 		},
 	}
 
 	orderedBuckets, err := OrderBuckets(buckets)
 	if err != nil {
-		t.Fatal(err)
+		t.Fatalf("Error ordering buckets: %+v", err)
 	}
 
 	if orderedBuckets[0].Name != "b1" {
-		t.Fatalf("First bucket is not b1")
+		t.Fatalf("First bucket is not b1: %+v", orderedBuckets)
 	}
-	if orderedBuckets[1].Name != "b4" {
-		t.Fatalf("First bucket is not b4")
+	if orderedBuckets[1].Name != "b2" {
+		t.Fatalf("Second bucket is not b2: %+v", orderedBuckets)
 	}
-	if orderedBuckets[2].Name != "b2" {
-		t.Fatalf("First bucket is not b2")
+	if orderedBuckets[2].Name != "b3" {
+		t.Fatalf("Third bucket is not b3: %+v", orderedBuckets)
 	}
-	if orderedBuckets[3].Name != "b3" {
-		t.Fatalf("First bucket is not b3")
+	if orderedBuckets[3].Name != "b4" {
+		t.Fatalf("Last bucket is not b4: %+v", orderedBuckets)
 	}
 }
