@@ -9,4 +9,5 @@ import:
 - package: github.com/spf13/viper
 - package: github.com/olekukonko/tablewriter
 - package: github.com/nextrevision/go-runscope
+  version: ba1c73c5745d442a9f07949f1c566261499d6c91
 - package: github.com/Sirupsen/logrus
