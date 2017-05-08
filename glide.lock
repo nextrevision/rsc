@@ -1,6 +1,8 @@
-hash: 2873ffb29904dc303a0464a3ae4e611088b450945a20a7b0a9a47c4829ff5f71
-updated: 2017-05-08T12:22:23.654809837-04:00
+hash: 0cd466d4ed92071c4b3aef1312e9f96c543f3643d126dc4f619559892f4622f0
+updated: 2017-05-08T12:29:36.89234876-04:00
 imports:
+- name: github.com/deckarep/golang-set
+  version: 52ba7f28f319e9d560acbf47c7fcf9b9ee7aa7d3
 - name: github.com/fsnotify/fsnotify
   version: fd9ec7deca8bf46ecd2a795baaacf2b3a9be1197
 - name: github.com/hashicorp/hcl
@@ -25,7 +27,7 @@ imports:
 - name: github.com/mitchellh/mapstructure
   version: f3009df150dadf309fdee4a54ed65c124afad715
 - name: github.com/nextrevision/go-runscope
-  version: ba1c73c5745d442a9f07949f1c566261499d6c91
+  version: 9c34d1e6e666df80e07a38689710564b4043c672
 - name: github.com/olekukonko/tablewriter
   version: bdcc175572fd7abece6c831e643891b9331bc9e7
 - name: github.com/parnurzeal/gorequest

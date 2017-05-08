@@ -1,7 +1,4 @@
-# rsc
-
-[![Build Status](https://travis-ci.org/nextrevision/rsc.svg?branch=master)](https://travis-ci.org/nextrevision/rsc)
-
+# rsc [![Build Status](https://travis-ci.org/nextrevision/rsc.svg?branch=master)](https://travis-ci.org/nextrevision/rsc)
 
 RSC is a [Runscope](https://runscope.com) command line client used to manage resources in a Runscope account.
 

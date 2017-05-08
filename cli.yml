@@ -1,0 +1,24 @@
+name: rsc
+help: Runscope CLI Mock
+commands:
+- name: list
+  help: lists Runscope resources
+  commands:
+  - name: tests
+    help: lists Runscope tests
+    output: |
+      test1
+      test2
+  flags:
+  - name: bucket
+    short: b
+    help: bucket to use
+    global: true
+    type: string
+- name: show
+  help: shows a Runscope resource
+  commands:
+  - name: test
+    help: shows details about a runscope test
+    output: |
+      test1
