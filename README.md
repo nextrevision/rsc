@@ -112,8 +112,8 @@ INFO[0002] Would have created test: MySecondTest
 
 You can create templates for your tests (see `examples` directory). Inside of these templates, you can access information about other tests via template functions.
 
-* `<% TriggerURL bucketname testname %>`: returns the trigger URL for a given test
-* `<% TriggerURL bucketname testname %>`: returns the batch URL for a given test
+* `<% triggerURL bucketname testname %>`: returns the trigger URL for a given test
+* `<% batchURL bucketname testname %>`: returns the batch URL for a given test
 
 ## Developing
 
